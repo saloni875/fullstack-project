@@ -3,14 +3,16 @@
     <style>
         #filters {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
             align-items: center;
+            padding: 1rem;
+            gap: 1rem;
         }
 
         .filter {
             text-align: center;
-            margin-right: 2rem;
-            margin-top: 1rem;
+            flex: 0 0 auto;
             opacity: 0.7;
         }
 
@@ -20,28 +22,51 @@
         }
 
         .filter p {
-            font-size: 1rem;
+            font-size: 0.9rem;
+            margin: 0;
         }
-        .tax-info{
-            display: none;
-        }
-        .taxt-toggle{
+
+        .taxt-toggle {
             border: 1px solid black;
             border-radius: 1.2rem;
             height: 3rem;
-            padding: 1rem;
-            margin-left: 5rem;
+            padding: 0 1rem;
+            flex-shrink: 0;
+            white-space: nowrap;
             display: flex;
             align-items: center;
         }
-        .not-fond{
-            color:  rgb(236, 44, 76);
-            text-align: center;
-            margin: 3rem;
-            padding: 1.2rem;
+
+        .form-check-label {
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        #filter-dropdown {
+            display: none;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            #filters {
+                display: none;
+            }
+
+            #filter-dropdown {
+                display: block;
+                margin: 1rem;
+                font-size: 0.5rem;
+
+            }
+        }
+
+        /* Hide scrollbar */
+        #filters::-webkit-scrollbar {
+            display: none;
         }
     </style>
 
+    <!-- Desktop Filter Section (horizontal scroll) -->
     <div id="filters">
         <div class="filter"><i class="fa-solid fa-fire-flame-curved"></i>
             <p>Trending</p>
@@ -64,20 +89,36 @@
         <div class="filter"><i class="fa-solid fa-campground"></i>
             <p>Camping</p>
         </div>
-        <div class="filter"> <i class="fa-solid fa-tractor"></i>
+        <div class="filter"><i class="fa-solid fa-tractor"></i>
             <p>Farms</p>
         </div>
         <div class="filter"><i class="fa-solid fa-snowflake"></i>
             <p>Snow</p>
         </div>
-        
+
+        <!-- Display total toggle -->
         <div class="taxt-toggle">
-            <div class="form-check-reverse form-switch">
+            <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
                 <label class="form-check-label" for="flexSwitchCheckDefault">Display total after texts</label>
             </div>
         </div>
+    </div>
 
+    <!-- Mobile Dropdown Filter -->
+    <div id="filter-dropdown">
+        <select class="form-select">
+            <option selected disabled>Filter By</option>
+            <option>Trending</option>
+            <option>Rooms</option>
+            <option>Iconic cities</option>
+            <option>Mountains</option>
+            <option>Arctic Pools</option>
+            <option>Castles</option>
+            <option>Camping</option>
+            <option>Farms</option>
+            <option>Snow</option>
+        </select>
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 mt-3">
@@ -100,21 +141,21 @@
             <%} %>
     </div>
 
-    <% if(allListing.length === 0){ %>
+    <% if(allListing.length===0){ %>
         <h2 class="not-fond"> No Destination Found For Your Search!!!</h2>
-    <% } %>
+        <% } %>
 
-    <script>
-        let textSwitch = document.getElementById("flexSwitchCheckDefault");
-        textSwitch.addEventListener("click",()=>{
-           let taxInfo= document.getElementsByClassName("tax-info")
-           for(info of taxInfo){
-            if(info.style.display != "inline"){
-                info.style.display = "inline";
-            }else{
-                info.style.display = "none";
-            }
-            
-           }
-        });
-    </script>
+            <script>
+                let textSwitch = document.getElementById("flexSwitchCheckDefault");
+                textSwitch.addEventListener("click", () => {
+                    let taxInfo = document.getElementsByClassName("tax-info")
+                    for (info of taxInfo) {
+                        if (info.style.display != "inline") {
+                            info.style.display = "inline";
+                        } else {
+                            info.style.display = "none";
+                        }
+
+                    }
+                });
+            </script>
